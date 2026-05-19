@@ -32,7 +32,14 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
 
     @Override
     public boolean contains(T element) throws TreeException {
-        return false;
+        if (isEmpty()) throw new TreeException("Binary Tree is empty");
+        return binarySearch(this.root, element);
+    }
+
+    public boolean binarySearch( BTreeNode<T> node, T element){
+        if (node == null) return false;
+        else if (equals(node.data, element)) return true;
+        else return  binarySearch(node.left, element) || binarySearch(node.right, element);
     }
 
 
@@ -174,6 +181,11 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
         result += "PostOrder (L-R-N): "  + postOrder(root) + "\n";
         return result;
     }
+
+    private boolean equals(T a, T b)  {
+        return a==null ? b==null : a.equals(b);
+    }
+
 
 
 }

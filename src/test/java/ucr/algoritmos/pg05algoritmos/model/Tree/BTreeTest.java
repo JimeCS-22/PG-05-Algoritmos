@@ -7,6 +7,7 @@ package ucr.algoritmos.pg05algoritmos.model.Tree;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLOutput;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,9 +21,22 @@ class BTreeTest {
         bTree.add(20);
         bTree.add(30);
         bTree.add(40);
+        for (int i = 0; i < 10; i++) {
+
+            int value = new Random().nextInt(50);
+            bTree.add(value);
+
+        }
         System.out.println(bTree);
         try {
             System.out.println("Tree size: " + bTree.size());
+
+            for (int i = 0; i < 10; i++) {
+
+                int value = new Random().nextInt(50);
+                System.out.println(bTree.contains(value) ? value + " exists" : value + " does not exist");
+
+            }
         } catch (TreeException e) {
             throw new RuntimeException(e);
         }
