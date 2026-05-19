@@ -32,13 +32,7 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
 
     @Override
     public void add(T element) {
-        this.root = add(root, element);
-    }
-
-
-    @Override
-    public int height(T element) throws TreeException {
-        return 0;
+        this.root = add(root, element, "root");
     }
 
     private BTreeNode<T>add(BTreeNode<T> node, T element){
@@ -58,6 +52,32 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
         return node;
 
     }
+
+    private BTreeNode<T>add(BTreeNode<T> node, T element, String path){
+
+        if(node == null){
+
+            node = new BTreeNode<>(element, path);
+
+        }else{
+            //debemos establecer algún criterio para insertar elementos
+            int value = new Random().nextInt(10);
+            if (value % 2==0) //si el valor es para enserte por la izquierda
+                node.left = add(node.left, element,  path + " /left");
+            else node.right = add(node.right, element,   path + " /right");
+        }
+
+        return node;
+
+    }
+
+
+    @Override
+    public int height(T element) throws TreeException {
+        return 0;
+    }
+
+
 
     @Override
     public void remove(T element) throws TreeException {
@@ -96,7 +116,7 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
         String result = "";
         if(node != null) {
             result += inOrder(node.left);
-            result += node.data + " ";
+            result += node.data + "( " + node.path + " )";
             result += inOrder(node.right);
         }
         return result;
@@ -104,8 +124,10 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
 
     @Override
     public String postOrder() throws TreeException {
-        return "";
+
+       return "";
     }
+
 
     @Override
     public String nodeHeight() throws TreeException {
@@ -121,4 +143,6 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
         //result += "PostOrder: "  + inOrder(root) + "\n";
         return result;
     }
+
+
 }
