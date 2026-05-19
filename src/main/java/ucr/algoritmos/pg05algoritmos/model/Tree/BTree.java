@@ -1,6 +1,8 @@
 package ucr.algoritmos.pg05algoritmos.model.Tree;
 
-public class BTree<T extends Comparable<T>> implements Tree {
+import java.util.Random;
+
+public class BTree<T extends Comparable<T>> implements Tree<T> {
     private BTreeNode<T> root; //representa la unica entrada al árbol
 
     //Constructor
@@ -23,32 +25,43 @@ public class BTree<T extends Comparable<T>> implements Tree {
     }
 
     @Override
-    public boolean contains(Object element) throws TreeException {
+    public boolean contains(T element) throws TreeException {
         return false;
     }
 
+
     @Override
-    public void add(Object element) {
+    public void add(T element) {
         this.root = add(root, element);
     }
 
-    private BTreeNode<T>add(BTreeNode<T>, Object element){
-
-        if(this.root == null){
-
-        }
-
-    }
 
     @Override
-    public void remove(Object element) throws TreeException {
-
-    }
-
-    @Override
-    public int height(Object element) throws TreeException {
+    public int height(T element) throws TreeException {
         return 0;
     }
+
+    private BTreeNode<T>add(BTreeNode<T> node, T element){
+
+        if(node == null){
+
+            node = new BTreeNode<>(element);
+
+        }else{
+            int value = new Random().nextInt(10);
+            if (value % 2==0) node.left = add(node.left, element);
+            else node.right = add(node.right, element);
+        }
+
+        return node;
+
+    }
+
+    @Override
+    public void remove(T element) throws TreeException {
+
+    }
+
 
     @Override
     public int height() throws TreeException {
@@ -56,12 +69,12 @@ public class BTree<T extends Comparable<T>> implements Tree {
     }
 
     @Override
-    public Object min() throws TreeException {
+    public T min() throws TreeException {
         return null;
     }
 
     @Override
-    public Object max() throws TreeException {
+    public T max() throws TreeException {
         return null;
     }
 
