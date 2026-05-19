@@ -96,7 +96,7 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
         String result = "";
         if(node != null) {
             result += inOrder(node.left);
-            result += node.data;
+            result += node.data + " ";
             result += inOrder(node.right);
         }
         return result;

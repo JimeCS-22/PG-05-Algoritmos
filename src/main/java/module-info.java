@@ -1,8 +1,8 @@
 module ucr.algoritmos.pg05algoritmos {
-    requires javafx.controls;
-    requires javafx.fxml;
-    requires javafx.base;
     requires java.desktop;
+    requires javafx.graphics;
+    requires javafx.fxml;
+    requires javafx.controls;
 
 
     opens ucr.algoritmos.pg05algoritmos to javafx.fxml;
