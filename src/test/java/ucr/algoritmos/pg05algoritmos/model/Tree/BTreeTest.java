@@ -1,10 +1,15 @@
 package ucr.algoritmos.pg05algoritmos.model.Tree;
 
+/**
+ * LAB01 y Lexis son la misma persona pero en computadora diferente, una es en la universidad y la otra desde la casa.
+ */
+
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLOutput;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 class BTreeTest {
 
