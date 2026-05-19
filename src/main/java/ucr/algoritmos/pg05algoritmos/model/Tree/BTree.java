@@ -48,8 +48,10 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
             node = new BTreeNode<>(element);
 
         }else{
+            //debemos establecer algún criterio para insertar elementos
             int value = new Random().nextInt(10);
-            if (value % 2==0) node.left = add(node.left, element);
+            if (value % 2==0) //si el valor es para enserte por la izquierda
+                node.left = add(node.left, element);
             else node.right = add(node.right, element);
         }
 
