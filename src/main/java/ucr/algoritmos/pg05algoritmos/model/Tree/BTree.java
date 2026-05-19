@@ -102,7 +102,20 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
 
     @Override
     public String preOrder() throws TreeException {
-        return "";
+        if(isEmpty()) throw new TreeException("Binary Tree is empty");
+        return preOrder(root);
+    }
+
+    //Recorrido: N-L-R
+    private String preOrder(BTreeNode<T> node){
+        String result = "";
+        if(node != null) {
+            result  = node.data + "( " + node.path + " ) ";
+            result += preOrder(node.left);
+            result += preOrder(node.right);
+
+        }
+        return result;
     }
 
     @Override
@@ -115,8 +128,8 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
     private String inOrder(BTreeNode<T> node){
         String result = "";
         if(node != null) {
-            result += inOrder(node.left);
-            result += node.data + "( " + node.path + " )";
+            result  = inOrder(node.left);
+            result += node.data + "( " + node.path + " ) ";
             result += inOrder(node.right);
         }
         return result;
@@ -124,8 +137,20 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
 
     @Override
     public String postOrder() throws TreeException {
+        if(isEmpty()) throw new TreeException("Binary Tree is empty");
+        return postOrder(root);
+    }
 
-       return "";
+    //Recorrido: L-R-N
+    private String postOrder(BTreeNode<T> node){
+        String result = "";
+        if(node != null) {
+            result  = postOrder(node.left);
+            result += postOrder(node.right);
+            result += node.data + "( " + node.path + " ) ";
+
+        }
+        return result;
     }
 
 
@@ -138,9 +163,9 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
     public String toString() {
         if(isEmpty()) return "Binary Tree is empty";
         String result = "Binary Tree Tour\n";
-        //result += "PreOrder" + preOrder(root) + "\n";
+        result += "PreOrder: " + preOrder(root) + "\n";
         result += "InOrder: "  + inOrder(root) + "\n";
-        //result += "PostOrder: "  + inOrder(root) + "\n";
+        result += "PostOrder: "  + postOrder(root) + "\n";
         return result;
     }
 
