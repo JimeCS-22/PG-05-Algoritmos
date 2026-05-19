@@ -163,9 +163,9 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
     public String toString() {
         if(isEmpty()) return "Binary Tree is empty";
         String result = "Binary Tree Tour\n";
-        result += "PreOrder: " + preOrder(root) + "\n";
-        result += "InOrder: "  + inOrder(root) + "\n";
-        result += "PostOrder: "  + postOrder(root) + "\n";
+        result += "PreOrder (N-L-R): " + preOrder(root) + "\n";
+        result += "InOrder (L-N-R): "  + inOrder(root) + "\n";
+        result += "PostOrder (L-R-N): "  + postOrder(root) + "\n";
         return result;
     }
 
