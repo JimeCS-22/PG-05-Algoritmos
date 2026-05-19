@@ -15,4 +15,5 @@ module ucr.algoritmos.pg05algoritmos {
     opens ucr.algoritmos.pg05algoritmos.model.linkedList to javafx.base;
     opens ucr.algoritmos.pg05algoritmos.model.stack to javafx.base;
     opens ucr.algoritmos.pg05algoritmos.model.Queue to javafx.base;
+    opens ucr.algoritmos.pg05algoritmos.model.Tree to javafx.base;
 }
