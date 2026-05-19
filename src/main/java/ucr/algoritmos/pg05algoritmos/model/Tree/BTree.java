@@ -87,7 +87,19 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
 
     @Override
     public String inOrder() throws TreeException {
-        return "";
+        if(isEmpty()) throw new TreeException("Binary Tree is empty");
+        return inOrder(root);
+    }
+
+    //Recorrido: L-N-R
+    private String inOrder(BTreeNode<T> node){
+        String result = "";
+        if(node != null) {
+            result += inOrder(node.left);
+            result += node.data;
+            result += inOrder(node.right);
+        }
+        return result;
     }
 
     @Override
@@ -98,5 +110,15 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
     @Override
     public String nodeHeight() throws TreeException {
         return "";
+    }
+
+    @Override
+    public String toString() {
+        if(isEmpty()) return "Binary Tree is empty";
+        String result = "Binary Tree Tour\n";
+        //result += "PreOrder" + preOrder(root) + "\n";
+        result += "InOrder: "  + inOrder(root) + "\n";
+        //result += "PostOrder: "  + inOrder(root) + "\n";
+        return result;
     }
 }
