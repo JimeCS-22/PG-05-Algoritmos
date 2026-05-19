@@ -11,7 +11,13 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
     }
     @Override
     public int size() throws TreeException {
-        return 0;
+        if(isEmpty()) throw new TreeException("Binary Tree is empty");
+        return size(root);
+    }
+
+    private int size(BTreeNode<T> nodo){
+        if(nodo == null) return 0;
+        return size(nodo.left) + size(nodo.right) + 1;
     }
 
     @Override

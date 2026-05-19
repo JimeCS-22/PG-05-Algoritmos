@@ -21,6 +21,11 @@ class BTreeTest {
         bTree.add(30);
         bTree.add(40);
         System.out.println(bTree);
+        try {
+            System.out.println("Tree size: " + bTree.size());
+        } catch (TreeException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
