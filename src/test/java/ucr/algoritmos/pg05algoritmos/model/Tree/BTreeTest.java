@@ -30,12 +30,12 @@ class BTreeTest {
         System.out.println(bTree);
         try {
             System.out.println("Tree size: " + bTree.size());
-
+            System.out.println("Min value: "+ bTree.min());
+            System.out.println("Min value: "+ bTree.max());
             for (int i = 0; i < 10; i++) {
 
                 int value = new Random().nextInt(10 , 50);
                 System.out.println(bTree.contains(value) ? " [ " + value + " ] exists " : value + " does not exist");
-
 
             }
         } catch (TreeException e) {
