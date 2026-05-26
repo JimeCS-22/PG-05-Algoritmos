@@ -142,7 +142,7 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
         String result = "";
         if(node != null) {
             result  = inOrder(node.left);
-            result += node.data + "( " + node.path + " ) ";
+            result += node.data + ", " ;
             result += inOrder(node.right);
         }
         return result;
@@ -160,7 +160,7 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
         if(node != null) {
             result  = postOrder(node.left);
             result += postOrder(node.right);
-            result += node.data + "( " + node.path + " ) ";
+            result += node.data + ", " ;
 
         }
         return result;
