@@ -100,13 +100,36 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
 
     @Override
     public int height() throws TreeException {
-        return 0;
+       return 0;
     }
 
     @Override
     public T min() throws TreeException {
-        return null;
+        if(isEmpty()) throw new TreeException("Binary Tree is empty");
+        return min(root);
     }
+
+    private T min(BTreeNode<T> node){
+
+        if(node.left != null && node.right != null)//Caso 1. Cuando el nodo tiene los dos hijos
+            return minElement(node.data,minElement(min(node.left), min (node.right)));
+         else if (node.left != null) //Caso 2. Cuando el nodo tiene un solo hijo izquierdo
+            return minElement(node.data, min(node.left));
+        else if (node.right != null) //Caso 3. Cuando el nodo tiene un solo hijo derecho
+            return minElement(node.data, min(node.right));
+        else
+        return node.data;// es una hoja
+    }
+
+    private T minElement(T a, T b){
+
+        if(a == null) return b;
+        else if(b == null) return a;
+        return compareElement(a,b) <= 0 ? a : b;
+
+    }
+
+
 
     @Override
     public T max() throws TreeException {
@@ -182,8 +205,14 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
         return result;
     }
 
+    /**Metodos de ayuda**/
     private boolean equals(T a, T b)  {
         return a==null ? b==null : a.equals(b);
+    }
+
+    //metodo generico de comparacion
+    private int compareElement(T a, T b) {
+        return a.compareTo(b);
     }
 
 
