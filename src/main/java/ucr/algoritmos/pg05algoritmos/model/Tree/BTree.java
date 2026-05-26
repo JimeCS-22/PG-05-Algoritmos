@@ -87,8 +87,53 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
 
     @Override
     public void remove(T element) throws TreeException {
-
+        if(isEmpty()) throw new TreeException("Binary Tree is empty");
+        root = remove(root, element);
     }
+
+    private BTreeNode<T> remove(BTreeNode<T> node, T element){
+        if (node != null) {
+            if(equals(node.data, element)){//ya encontró el elemento a eliminar
+                //Caso 1. Es un nodo sin hijos
+                if (node.left == null && node.right == null) {
+                    return null;
+                }else{//Caso 2. El nodo solo tiene un hijo, en este caso se reemplaza por todo el subarbol
+                    if (node.left != null && node.right==null) {
+                        node.left = newPath(node.left, node.path);//actualizar etiquetas del path
+                        return node.left;//sube todo el subarbol izq
+                    }else if (node.left == null && node.right != null){
+                        node.right = newPath(node.right, node.path);
+                        return node.right;//sube el subarbol dere
+                    }else{//Caso 3. el nodo tiene dos hijos
+                        //buscamos el valor min del subarbol der
+                        //se reemplaza la data del nodo con ese valor
+                        //luego se suprime el valor min del subarbol der
+                        T minValue = min(node.right);
+                        node.data = minValue;
+                        node.right = remove(node.right, minValue);
+                    }
+                }
+            }
+        }else{
+            node.left = remove(node.left, element);
+            node.right = remove(node.right,element);
+            
+        }
+        return node;//retorna el árbol con un elemento menos
+    }
+
+    /**
+     * Este metodo sirve para actualizar la ruta de todos los nodos del subarbol
+     */
+    private BTreeNode<T> newPath(BTreeNode<T> node, String path) {
+        if (node != null) {
+            node.path = path;
+            newPath(node.left, path+"/left");
+            newPath(node.right, path+"/right");
+        }
+        return node;
+    }
+
 
     //devuelve la altura de un elemento especifico dentro del arbol
     @Override
@@ -109,9 +154,15 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
     //Devuelve la altura del árbol
     @Override
     public int height() throws TreeException {
-       return 0;
+        if(isEmpty()) throw new TreeException("Binary Tree is empty");
+        return height(root)-1;//-1 porque la altura de la raiz es 0
     }
 
+    private int height(BTreeNode<T> node){
+        if (node == null) {
+            return 0;
+        }else return Math.max(height(node.left),height(node.right))+1;
+    }
     @Override
     public T min() throws TreeException {
         if(isEmpty()) throw new TreeException("Binary Tree is empty");
@@ -217,7 +268,7 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
         return result;
     }
 
-
+//  TODO MIERCOLES
     @Override
     public String nodeHeight() throws TreeException {
         return "";
