@@ -35,7 +35,7 @@ class BTreeTest {
             for (int i = 0; i < 10; i++) {
 
                 int value = new Random().nextInt(10 , 50);
-                System.out.println(bTree.contains(value) ? " [ " + value + " ] exists " : value + " does not exist");
+                System.out.println(bTree.contains(value) ? " [ " + value + " ] exists. Height "+bTree.height(value) : value + " does not exist");
 
             }
         } catch (TreeException e) {

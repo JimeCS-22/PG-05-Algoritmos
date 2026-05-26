@@ -86,18 +86,27 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
 
 
     @Override
-    public int height(T element) throws TreeException {
-        return 0;
-    }
-
-
-
-    @Override
     public void remove(T element) throws TreeException {
 
     }
 
+    //devuelve la altura de un elemento especifico dentro del arbol
+    @Override
+    public int height(T element) throws TreeException {
+        if(isEmpty()) throw new TreeException("Binary Tree is empty");
+        return height(root, element,0);
+    }
+    private int height(BTreeNode<T> node, T element, int count){
+        if (node == null) {
+            return 0;
+        } else if (equals(node.data, element)) {
+            return count;
+        }else return Math.max(height(node.left,element,++count), height(node.right,element,count));
+        //Con el método propio amerita cambios
+       //return (int) maxElement(height(node.left,element,++count), height(node.right,element,count));
+    }
 
+    //Devuelve la altura del árbol
     @Override
     public int height() throws TreeException {
        return 0;
