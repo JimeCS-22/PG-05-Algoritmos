@@ -268,12 +268,33 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
         return result;
     }
 
-//  TODO MIERCOLES
+    //TAREA
+//muestra por consola la altura de cada elemento del arbol
     @Override
     public String nodeHeight() throws TreeException {
-        return "";
-    }
+        if(isEmpty()) throw new TreeException("Binary Tree is empty");
 
+        StringBuilder result = new StringBuilder();
+
+        nodeHeight(root, result);
+
+        return result.toString();
+    }
+    private void nodeHeight(BTreeNode<T> node, StringBuilder result)
+            throws TreeException {
+
+        if (node != null) {
+
+            result.append("Elemento: ")
+                    .append(node.data)
+                    .append(" -> Altura: ")
+                    .append(height(node.data))
+                    .append("\n");
+
+            nodeHeight(node.left, result);
+            nodeHeight(node.right, result);
+        }
+    }
     @Override
     public String toString() {
         if(isEmpty()) return "Binary Tree is empty";

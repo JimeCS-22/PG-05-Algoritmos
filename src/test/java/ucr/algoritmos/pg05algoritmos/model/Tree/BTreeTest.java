@@ -87,4 +87,26 @@ class BTreeTest {
             throw new RuntimeException(e);
         }
     }
+
+    @Test
+    void nodeHeightTest() {
+        BTree<Integer> bTree = new BTree<>();
+        for (int i = 0; i < 5; i++) {
+            int value = new Random().nextInt(1, 30);
+            bTree.add(value);
+        }
+        System.out.println(bTree);
+
+        try {
+            for (int i = 0; i < 5; i++) {
+                int value = new Random().nextInt(1, 30);
+                if (bTree.contains(value)) {
+                    System.out.println("Nodes Height: \n"+bTree.nodeHeight());
+                }
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
+}
