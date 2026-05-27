@@ -3,7 +3,7 @@ package ucr.algoritmos.pg05algoritmos.model.Tree;
 import java.util.Random;
 
 public class BTree<T extends Comparable<T>> implements Tree<T> {
-    private BTreeNode<T> root; //representa la unica entrada al árbol
+    public BTreeNode<T> root; //representa la unica entrada al árbol
 
     //Constructor
     public BTree(){
@@ -306,12 +306,12 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     /**Metodos de ayuda**/
-    private boolean equals(T a, T b)  {
+    public boolean equals(T a, T b)  {
         return a==null ? b==null : a.equals(b);
     }
 
     //metodo generico de comparacion
-    private int compareElement(T a, T b) {
+    public int compareElement(T a, T b) {
         return a.compareTo(b);
     }
 

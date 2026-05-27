@@ -38,11 +38,11 @@ public interface Tree<T> {
 
     //devuelve el valor mínimo contenido en el árbol
     public T min() throws TreeException;
-    //private Object min(BTreeNode node)
+    //private T min(BTreeNode node)
 
     //devuelve el valor máximo contenido en el árbol
     public T max() throws TreeException;
-    //private Object max(BTreeNode node)
+    //private T max(BTreeNode node)
 
     //Pre Order Transversal Tour: N-L-R
     public String preOrder() throws TreeException;
