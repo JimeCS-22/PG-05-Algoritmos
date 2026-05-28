@@ -158,7 +158,7 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
         return height(root)-1;//-1 porque la altura de la raiz es 0
     }
 
-    private int height(BTreeNode<T> node){
+    public int height(BTreeNode<T> node){
         if (node == null) {
             return 0;
         }else return Math.max(height(node.left),height(node.right))+1;
