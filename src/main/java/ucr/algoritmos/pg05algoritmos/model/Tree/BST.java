@@ -88,7 +88,7 @@ public class BST<T extends Comparable<T>> extends BTree<T> {
         return max(root);
     }
 
-    private T max(BTreeNode<T> node) throws TreeException {
+    public T max(BTreeNode<T> node)  {
         if(node.right != null) return max(node.right);
         return node.data;
     }
