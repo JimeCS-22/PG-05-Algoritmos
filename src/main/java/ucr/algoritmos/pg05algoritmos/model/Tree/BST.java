@@ -12,7 +12,6 @@ public class BST<T extends Comparable<T>> extends BTree<T> {
     //Inicialmente el arbol estará apuntando a Null, luego pasará ser (Null, [Valor]), luego de eso se agregará
     //Despues se llama recursivamente para seguir con el mismo proceso con todos los elementos
     private BTreeNode<T>add(BTreeNode<T> node, T element){
-
         if(node == null){
             node = new BTreeNode<>(element);
         }else if(compareElement(element, node.data) < 0){
@@ -41,7 +40,35 @@ public class BST<T extends Comparable<T>> extends BTree<T> {
 
     @Override
     public void remove(T element) throws TreeException {
-        super.remove(element);
+        if(isEmpty()) throw new TreeException("Binary Search Tree is Empty");
+        root = remove(root, element);
+    }
+
+    private BTreeNode<T>remove(BTreeNode<T> node, T element){
+        if(node != null){
+            if(compareElement(element, node.data) < 0)
+            node.left = remove(node.left, element);
+            else if(compareElement(element, node.data) > 0)
+            node.right = remove(node.right, element);
+            else if(equals(node.data, element)){ //Ya lo encontró
+                //Caso 1: El nodo a suprimir no tiene hijos, es una hoja
+                if (node.left == null && node.right == null)return null;
+                //Caso 2: El nodo a suprimir solo tiene un hijo
+                //  En este caso, el nodo es reemplazado por su hijo
+                else if (node.left != null && node.right == null) return node.left;
+                else if (node.left == null && node.right != null) return node.right;
+                //Caso 3: El nodo a suprimir tiene dos hijos
+                else{
+                    //Se obtiene el elemento menor del subarbol derecho
+                    //Se reemplaza la data del nodo por ese valor
+                    //Se elimina el valor
+                    T minValue = min(node.right);
+                    node.data = minValue;
+                    node.right = remove(node.right, minValue);
+                }
+            }
+        }
+        return node;
     }
 
     @Override
@@ -50,7 +77,7 @@ public class BST<T extends Comparable<T>> extends BTree<T> {
         return min(root);
     }
 
-    private T min(BTreeNode<T> node) throws TreeException {
+    private T min(BTreeNode<T> node){
         if(node.left != null) return min(node.left);
         return node.data;
     }
