@@ -47,6 +47,34 @@ public class BST<T extends Comparable<T>> extends BTree<T> {
 
     @Override
     public String preOrder() throws TreeException {
-        return super.preOrder();
+        if(isEmpty()) throw new TreeException("Binary Search Tree is empty");
+        return preOrder(root);
+    }
+
+    //Recorrido: N-L-R
+    private String preOrder(BTreeNode<T> node){
+        String result = "";
+        if(node != null) {
+            result  = node.data + ", ";
+            result += preOrder(node.left);
+            result += preOrder(node.right);
+
+        }
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        if(isEmpty()) return "Binary Search Tree is empty";
+        String result = "Binary Tree Tour\n";
+        try {
+        result += "PreOrder (N-L-R): " + preOrder() + "\n";
+        result += "InOrder (L-N-R): "  + inOrder() + "\n";
+        result += "PostOrder (L-R-N): "  + postOrder() + "\n";
+
+        } catch (TreeException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
     }
 }
