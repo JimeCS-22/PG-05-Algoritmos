@@ -31,4 +31,29 @@ class BSTTest {
         }
 
     }
+
+    @Test
+    void testRemove() {
+        BST<Integer> bst = new BST<>();
+        for (int i = 0; i < 10; i++) {
+            int value = new Random().nextInt(1, 30);
+            bst.add(value);
+        }
+        System.out.println(bst);
+
+        try {
+            for (int i = 0; i < 5; i++) {
+                int value = new Random().nextInt(1, 30);
+                bst.add(value);
+                if (bst.contains(value)) {
+                    bst.remove(value);
+                    System.out.println("Removed value: "+ value);
+                }
+            }
+            System.out.println(bst);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
