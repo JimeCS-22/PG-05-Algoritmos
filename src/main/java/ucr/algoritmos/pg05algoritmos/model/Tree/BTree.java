@@ -108,7 +108,7 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
                         //buscamos el valor min del subarbol der
                         //se reemplaza la data del nodo con ese valor
                         //luego se suprime el valor min del subarbol der
-                        T minValue = min(node.right);
+                        T minValue = minNode(node.right);
                         node.data = minValue;
                         node.right = remove(node.right, minValue);
                     }
@@ -166,17 +166,17 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
     @Override
     public T min() throws TreeException {
         if(isEmpty()) throw new TreeException("Binary Tree is empty");
-        return min(root);
+        return minNode(root);
     }
-
-    private T min(BTreeNode<T> node){
+    //distinto nombre al de BST para que se pueda llamar correctamente en el AVL
+    private T minNode(BTreeNode<T> node){
 
         if(node.left != null && node.right != null)//Caso 1. Cuando el nodo tiene los dos hijos
-            return minElement(node.data,minElement(min(node.left), min (node.right)));
+            return minElement(node.data,minElement(minNode(node.left), minNode(node.right)));
          else if (node.left != null) //Caso 2. Cuando el nodo tiene un solo hijo izquierdo
-            return minElement(node.data, min(node.left));
+            return minElement(node.data, minNode(node.left));
         else if (node.right != null) //Caso 3. Cuando el nodo tiene un solo hijo derecho
-            return minElement(node.data, min(node.right));
+            return minElement(node.data, minNode(node.right));
         else
         return node.data;// es una hoja
     }

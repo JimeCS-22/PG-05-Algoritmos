@@ -76,8 +76,8 @@ public class BST<T extends Comparable<T>> extends BTree<T> {
         if(isEmpty()) throw new TreeException("Binary Search Tree is empty");
         return min(root);
     }
-
-    private T min(BTreeNode<T> node){
+//publico para que se pueda usar en AVL
+    public T min(BTreeNode<T> node){
         if(node.left != null) return min(node.left);
         return node.data;
     }
