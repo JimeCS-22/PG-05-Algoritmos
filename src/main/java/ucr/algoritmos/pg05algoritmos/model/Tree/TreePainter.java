@@ -97,4 +97,96 @@ public class TreePainter {
         return Color.RED; // -2, 2 o más
     }
 
+    public static void drawSimpleNode(
+            GraphicsContext gc,
+            BTreeNode<Integer> node,
+            double x,
+            double y,
+            double spacing
+    ) {
+
+        if(node == null) return;
+
+        double r = 22;
+
+        Color color;
+
+        boolean hoja =
+                node.left == null &&
+                        node.right == null;
+
+        if(node.path.equals("root"))
+            color = Color.DODGERBLUE;
+
+        else if(hoja)
+            color = Color.LIMEGREEN;
+
+        else
+            color = Color.GRAY;
+
+        gc.setFill(color);
+
+        gc.fillOval(
+                x-r,
+                y-r,
+                r*2,
+                r*2
+        );
+
+        gc.setStroke(Color.WHITE);
+
+        gc.strokeOval(
+                x-r,
+                y-r,
+                r*2,
+                r*2
+        );
+
+        gc.setFill(Color.WHITE);
+
+        gc.fillText(
+                node.data.toString(),
+                x-6,
+                y+5
+        );
+
+        double vGap = 90;
+
+        if(node.left != null){
+
+            gc.strokeLine(
+                    x,
+                    y+r,
+                    x-spacing,
+                    y+vGap-r
+            );
+
+            drawSimpleNode(
+                    gc,
+                    node.left,
+                    x-spacing,
+                    y+vGap,
+                    spacing/2
+            );
+        }
+
+        if(node.right != null){
+
+            gc.strokeLine(
+                    x,
+                    y+r,
+                    x+spacing,
+                    y+vGap-r
+            );
+
+            drawSimpleNode(
+                    gc,
+                    node.right,
+                    x+spacing,
+                    y+vGap,
+                    spacing/2
+            );
+        }
+    }
+
 }

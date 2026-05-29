@@ -6,10 +6,13 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import ucr.algoritmos.pg05algoritmos.model.Tree.AVL;
+import ucr.algoritmos.pg05algoritmos.model.Tree.BTree;
 import ucr.algoritmos.pg05algoritmos.model.Tree.BTreeNode;
 import ucr.algoritmos.pg05algoritmos.model.Tree.TreeException;
 
+import static ucr.algoritmos.pg05algoritmos.model.Tree.TreePainter.drawSimpleNode;
 import static ucr.algoritmos.pg05algoritmos.model.Tree.TreePainter.drawTreeNode;
 
 
@@ -53,19 +56,13 @@ public class MainController {
     @FXML
     private Button btnClearListDoble;
     @FXML
-    private Label txtInsertadoIn;
-    @FXML
     private TextArea txAreaNodeStructureD;
     @FXML
     private TableColumn colStock;
     @FXML
     private Label txtInsertar;
     @FXML
-    private TableColumn colPrevData;
-    @FXML
     private Label txtInsertadoInDoubly;
-    @FXML
-    private Button btnSearch;
     @FXML
     private Button btnAgregarDoble;
     @FXML
@@ -79,47 +76,23 @@ public class MainController {
     @FXML
     private TextField txtId;
     @FXML
-    private TableColumn colHeadData;
-    @FXML
     private TableColumn colRegDate;
-    @FXML
-    private TableColumn colIndexOf;
-    @FXML
-    private Canvas canvasListDraw;
     @FXML
     private TextField txtPrice;
     @FXML
     private Button btnOrdenarNombre;
     @FXML
-    private TableColumn colNextData;
-    @FXML
-    private TableColumn colTailData;
-    @FXML
     private Button btnEliminarDoble;
-    @FXML
-    private ListView listViewOperationsList;
-    @FXML
-    private TableView tableCircularLinkedList;
     @FXML
     private TableView tableCircularDoubly;
     @FXML
     private TableColumn colNombre;
     @FXML
-    private Button btnAgregarAleatorio;
-    @FXML
     private ChoiceBox bxType;
     @FXML
     private Button btnSearchDoble;
     @FXML
-    private TableColumn colData;
-    @FXML
-    private Button btnClearList;
-    @FXML
     private Button btnEliminarFinal;
-    @FXML
-    private Button btnAgregarFinal;
-    @FXML
-    private Button btnDelete;
     @FXML
     private TableColumn colType;
     @FXML
@@ -128,25 +101,43 @@ public class MainController {
     @FXML
     private Canvas canvasListDoubly;
     @FXML
-    private TextField textFieldValue;
-    @FXML
     private DatePicker dpRegisterDate;
     @FXML
-    private Label txFieldNodeRepre;
-    @FXML
-    private TextArea txAreaNodeStructure;
-    @FXML
-    private Button btnAgregarInicio;
-    @FXML
     private TableColumn colPrice;
+
+    /////---------BTREE----------////
+
+    @FXML
+    private TextField txtValueBTree;
+    @FXML
+    private Label lblTours1;
+    @FXML
+    private Canvas canvasBTree;
+    @FXML
+    private Label lblBTreeinfo;
+    @FXML
+    private Button btnClearBTree;
+    @FXML
+    private ComboBox cbRecorridosBTree;
+    @FXML
+    private Button btnAddBTree;
+    @FXML
+    private Button btnPlayBTree;
+    @FXML
+    private Button btnRemoveBTree;
+    @FXML
+    private HBox RecorridosBTree;
+    @FXML
+    private Label lblBTreeDelete;
+    private BTree<Integer> bTree;
 
 //  -------------
 
 
     @FXML
     public void initialize() {
-       // setupBinaryTree();
-       // setupBST();
+       setupBinaryTree();
+        //setupBST();
         setupAVL();
     }
 
@@ -323,6 +314,195 @@ public class MainController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    /// Methods Controller for BTREE tab - Jimena
+    private void setupBinaryTree() {
+
+        bTree = new BTree<>();
+
+        btnAddBTree.setOnAction(e -> addBTree());
+
+        btnRemoveBTree.setOnAction(e -> removeBTree());
+
+        btnClearBTree.setOnAction(e -> clearBTree());
+
+        btnPlayBTree.setOnAction(e -> {
+            try {
+                playToursBTree();
+            } catch (TreeException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        cbRecorridosBTree.setItems(
+                FXCollections.observableArrayList(
+                        "PreOrder",
+                        "InOrder",
+                        "PostOrder"
+                )
+        );
+
+        cbRecorridosBTree.getSelectionModel().selectFirst();
+    }
+
+    private void addBTree() {
+
+        try {
+
+            int value = Integer.parseInt(
+                    txtValueBTree.getText().trim()
+            );
+
+            bTree.add(value);
+
+            lblBTreeDelete.setText(
+                    "Insertado: " + value
+            );
+
+            updateBTreeInfo();
+
+            drawBTree();
+
+        } catch (Exception e) {
+
+            showAlert(
+                    "Error",
+                    "Ingrese un número válido"
+            );
+        }
+    }
+
+    private void removeBTree() {
+
+        try {
+
+            int value = Integer.parseInt(
+                    txtValueBTree.getText().trim()
+            );
+
+            bTree.remove(value);
+
+            lblBTreeDelete.setText(
+                    "Eliminado: " + value
+            );
+
+            updateBTreeInfo();
+
+            drawBTree();
+
+        } catch (Exception e) {
+
+            showAlert(
+                    "Error",
+                    "No se pudo eliminar"
+            );
+        }
+    }
+
+    private void clearBTree() {
+
+        bTree.clear();
+
+        txtValueBTree.clear();
+
+        lblTours1.setText("");
+
+        lblBTreeinfo.setText("");
+
+        lblBTreeDelete.setText("");
+
+        GraphicsContext gc =
+                canvasBTree.getGraphicsContext2D();
+
+        gc.clearRect(
+                0,
+                0,
+                canvasBTree.getWidth(),
+                canvasBTree.getHeight()
+        );
+    }
+
+    private void updateBTreeInfo() {
+
+        try {
+
+            lblBTreeinfo.setText(
+                    "Nodos: "
+                            + bTree.size()
+                            + " | Altura: "
+                            + bTree.height()
+            );
+
+        } catch (Exception e) {
+
+            lblBTreeinfo.setText(
+                    "Nodos: 0 | Altura: 0"
+            );
+        }
+    }
+
+    private void playToursBTree() throws TreeException {
+
+        String recorrido =
+                (String) cbRecorridosBTree
+                        .getSelectionModel()
+                        .getSelectedItem();
+
+        switch (recorrido) {
+
+            case "PreOrder":
+
+                lblTours1.setText(
+                        "PreOrder: ["
+                                + bTree.preOrder()
+                                + "]"
+                );
+                break;
+
+            case "InOrder":
+
+                lblTours1.setText(
+                        "InOrder: ["
+                                + bTree.inOrder()
+                                + "]"
+                );
+                break;
+
+            case "PostOrder":
+
+                lblTours1.setText(
+                        "PostOrder: ["
+                                + bTree.postOrder()
+                                + "]"
+                );
+                break;
+        }
+    }
+
+    private void drawBTree() {
+
+        GraphicsContext gc =
+                canvasBTree.getGraphicsContext2D();
+
+        gc.clearRect(
+                0,
+                0,
+                canvasBTree.getWidth(),
+                canvasBTree.getHeight()
+        );
+
+        if (bTree.root != null) {
+
+            drawSimpleNode(
+                    gc,
+                    bTree.root,
+                    canvasBTree.getWidth()/2,
+                    50,
+                    canvasBTree.getWidth()/4
+            );
+        }
+    }
+
 
 
 }

@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="1031.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucr.algoritmos.pg05algoritmos.controller.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="1031.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucr.algoritmos.pg05algoritmos.controller.MainController">
     <top>
         <VBox prefHeight="62.0" prefWidth="1036.0" styleClass="header-bar" stylesheets="@styles.css" BorderPane.alignment="CENTER">
             <children>
@@ -54,93 +54,6 @@
     <center>
         <TabPane fx:id="mainTabs" prefHeight="200.0" prefWidth="200.0" styleClass="main-tabs" stylesheets="@styles.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
-            <Tab text="Binary Tree">
-               <content>
-                  <SplitPane dividerPositions="0.5615906886517944" prefHeight="200.0" prefWidth="200.0">
-                     <items>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0" styleClass="panel">
-                           <children>
-                              <Label styleClass="panel-title" text="Lista enlazada circular simple: HEAD➡ nodes ➡ HEAD">
-                                 <font>
-                                    <Font size="10.0" />
-                                 </font>
-                              </Label>
-                              <ScrollPane fitToHeight="true" fitToWidth="false" hbarPolicy="ALWAYS" pannable="true" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER">
-
-                                <content>
-                                    <Canvas fx:id="canvasListDraw" height="300" width="2000" />
-                                </content>
-                              </ScrollPane>
-                              <VBox prefHeight="37.0" prefWidth="548.0" styleClass="info-box" stylesheets="@styles.css">
-                                 <children>
-                                    <Label styleClass="axis-label" text="Representación:" />
-                                    <Label fx:id="txFieldNodeRepre" text="..." />
-                                 </children>
-                              </VBox>
-                              <HBox prefHeight="35.0" prefWidth="548.0">
-                                 <children>
-                                    <Label text="Insertado " />
-                                    <Label fx:id="txtInsertadoIn" text="..." />
-                                 </children>
-                              </HBox>
-                              <Label styleClass="axis-label" text="Contenido de la Lista Enlazada Circular" />
-                              <TableView fx:id="tableCircularLinkedList" prefHeight="211.0" prefWidth="582.0" styleClass="custom-table" stylesheets="@styles.css">
-                                 <columns>
-                                    <TableColumn fx:id="colIndexOf" prefWidth="74.39998865127563" text="IndexOf" />
-                                    <TableColumn fx:id="colData" prefWidth="79.20001983642578" text="Data" />
-                                    <TableColumn fx:id="colNextData" prefWidth="83.20001220703125" text="Next Data" />
-                                    <TableColumn fx:id="colPrevData" prefWidth="88.80006408691406" text="Prev Data " />
-                                    <TableColumn fx:id="colHeadData" prefWidth="88.80006408691406" text="Head Data " />
-                                    <TableColumn fx:id="colTailData" prefWidth="88.80006408691406" text="Tail Data " />
-                                 </columns>
-                              </TableView>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="565.0" prefWidth="470.0" spacing="10.0" styleClass="panel">
-                           <children>
-                              <HBox prefHeight="32.0" prefWidth="481.0">
-                                 <children>
-                                    <HBox prefHeight="100.0" prefWidth="200.0">
-                                       <children>
-                                          <Label prefHeight="18.0" prefWidth="64.0" styleClass="param-label" text="Valor:" textAlignment="CENTER" />
-                                          <TextField fx:id="textFieldValue" />
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </HBox>
-                              <Label prefHeight="18.0" prefWidth="104.0" styleClass="axis-label" text="Operaciones" textAlignment="CENTER" />
-                              <HBox prefHeight="35.0" prefWidth="316.0" spacing="10.0">
-                                 <children>
-                                    <Button fx:id="btnAgregarInicio" mnemonicParsing="false" styleClass="btn-primary" text="← Agregar inicio" />
-                                    <Button fx:id="btnAgregarFinal" mnemonicParsing="false" prefHeight="30.0" prefWidth="127.0" styleClass="btn-primary" text="Agregar final →" />
-                                    <Button fx:id="btnAgregarAleatorio" mnemonicParsing="false" styleClass="btn-primary" text="Agregar Aleatorio" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="51.0" prefWidth="421.0" spacing="10.0">
-                                 <children>
-                                    <HBox prefHeight="17.0" prefWidth="419.0" spacing="10.0">
-                                       <children>
-                                          <Button fx:id="btnSearch" mnemonicParsing="false" styleClass="btn-primary" text="🔍Buscar" />
-                                          <Button fx:id="btnDelete" mnemonicParsing="false" styleClass="btn-accent" text="🗑Eliminar" />
-                                          <Button fx:id="btnClearList" mnemonicParsing="false" styleClass="btn-ghost" text="↻ Limpiar Todo" />
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </HBox>
-                              <Label styleClass="param-label" text="Registro de Operaciones" />
-                              <ListView fx:id="listViewOperationsList" prefHeight="151.0" prefWidth="419.0" />
-                              <VBox prefHeight="200.0" prefWidth="100.0" styleClass="info-box">
-                                 <children>
-                                    <Label styleClass="info-title" text="Estructura del Nodo" />
-                                    <TextArea fx:id="txAreaNodeStructure" editable="false" prefHeight="200.0" prefWidth="200.0" styleClass="info-box-dark" text="class Node&lt;T&gt; {&#10;     T data; // dato almacenado en el nodo&#10;      Node&lt;T&gt; next; //apuntador al siguiente nodo o a HEAD&#10;}&#10;&#10;&#10;" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </VBox>
-                     </items>
-                  </SplitPane>
-               </content>
-            </Tab>
             <Tab text="BST Tree">
                <content>
                   <SplitPane dividerPositions="0.5615906886517944" prefHeight="200.0" prefWidth="200.0">
@@ -345,6 +258,69 @@
                      </SplitPane>
                   </content>
                </Tab>
+            <Tab text="Árbol Bnario Simple">
+               <content>
+                  <SplitPane dividerPositions="0.3113482056256062" prefHeight="200.0" prefWidth="200.0">
+                     <items>
+                        <VBox prefHeight="665.0" prefWidth="459.0" spacing="10.0" styleClass="panel">
+                           <children>
+                              <Label styleClass="panel-title" text="ÁRBOL Binario Simple">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="13.0" prefWidth="211.0" styleClass="stat-label" text="Inserción por niveles (BFS)">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                              </Label>
+                              <HBox>
+                                 <children>
+                                    <Label styleClass="param-label" text="Valor (entero):" />
+                                    <TextField fx:id="txtValueBTree" />
+                                 </children>
+                              </HBox>
+                              <VBox prefHeight="111.0" prefWidth="290.0" spacing="5.0">
+                                 <children>
+                                    <Button fx:id="btnAddBTree" mnemonicParsing="false" prefHeight="30.0" prefWidth="291.0" styleClass="btn-primary" text="+ Insertar" />
+                                    <Button fx:id="btnRemoveBTree" mnemonicParsing="false" prefHeight="30.0" prefWidth="290.0" styleClass="btn-gray" text="🗑Eliminar" />
+                                    <Button fx:id="btnClearBTree" mnemonicParsing="false" prefHeight="32.0" prefWidth="289.0" styleClass="btn-ghost" text="Limpiar árbol" />
+                                 </children>
+                              </VBox>
+                              <Label styleClass="param-label" text="Recorridos" />
+                              <HBox prefHeight="36.0" prefWidth="289.0" spacing="10.0">
+                                 <children>
+                                    <ComboBox fx:id="cbRecorridosBTree" prefHeight="27.0" prefWidth="195.0" />
+                                    <Button fx:id="btnPlayBTree" mnemonicParsing="false" prefHeight="30.0" prefWidth="51.0" styleClass="btn-primary" text="▶" />
+                                 </children>
+                              </HBox>
+                              <HBox fx:id="RecorridosBTree" prefHeight="61.0" prefWidth="289.0">
+                                 <children>
+                                    <Label fx:id="lblTours1" prefHeight="42.0" prefWidth="130.0" />
+                                 </children>
+                              </HBox>
+                              <Label fx:id="lblBTreeinfo" prefHeight="26.0" prefWidth="289.0" styleClass="axis-label" text="Nodos: " textAlignment="CENTER" />
+                              <Label fx:id="lblBTreeDelete" prefHeight="26.0" prefWidth="289.0" styleClass="axis-label" text="Eliminado:" textAlignment="CENTER" />
+                              <Label text="Leyenda de colores" />
+                              <VBox prefHeight="132.0" prefWidth="289.0" style="         -fx-control-inner-background: #0f172a;         -fx-background-color: #0f172a;         -fx-text-fill: white;         -fx-font-size: 14px;         -fx-font-family: 'Consolas';         -fx-border-color: #1e293b;         -fx-border-radius: 12;         -fx-background-radius: 12;         -fx-padding: 12;     " styleClass="amber-card">
+                                 <children>
+                                    <Label style="-fx-text-fill: #60a5fa;                   -fx-font-size: 14px;" text="● Raíz" />
+                                    <Label style="-fx-text-fill: #4ade80;                   -fx-font-size: 14px;" text="● Hojas" />
+                                    <Label style="-fx-text-fill: #facc15;                   -fx-font-size: 14px;" text="● Nodo onterno" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="593.0" prefWidth="658.0" spacing="8.0" styleClass="panel">
+                           <children>
+                              <Canvas fx:id="canvasBTree" height="566.0" width="677.0" />
+                              <HBox prefHeight="35.0" prefWidth="548.0" />
+                           </children>
+                        </VBox>
+                     </items>
+                  </SplitPane>
+               </content>
+            </Tab>
 
             </tabs>
         </TabPane>
