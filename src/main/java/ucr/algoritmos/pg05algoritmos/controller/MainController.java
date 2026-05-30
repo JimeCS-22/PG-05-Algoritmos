@@ -7,10 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import ucr.algoritmos.pg05algoritmos.model.Tree.AVL;
-import ucr.algoritmos.pg05algoritmos.model.Tree.BTree;
-import ucr.algoritmos.pg05algoritmos.model.Tree.BTreeNode;
-import ucr.algoritmos.pg05algoritmos.model.Tree.TreeException;
+import ucr.algoritmos.pg05algoritmos.model.Tree.*;
 
 import static ucr.algoritmos.pg05algoritmos.model.Tree.TreePainter.drawSimpleNode;
 import static ucr.algoritmos.pg05algoritmos.model.Tree.TreePainter.drawTreeNode;
@@ -353,7 +350,7 @@ public class MainController {
                     txtValueBTree.getText().trim()
             );
 
-            bTree.add(value);
+            bTree.addBFS(value);
 
             lblBTreeDelete.setText(
                     "Insertado: " + value
@@ -433,7 +430,7 @@ public class MainController {
                             + bTree.height()
             );
 
-        } catch (Exception e) {
+        } catch(Exception e){
 
             lblBTreeinfo.setText(
                     "Nodos: 0 | Altura: 0"
@@ -491,14 +488,15 @@ public class MainController {
                 canvasBTree.getHeight()
         );
 
-        if (bTree.root != null) {
+        if(bTree.root != null){
 
-            drawSimpleNode(
+            TreePainter.drawSimpleNode(
                     gc,
                     bTree.root,
                     canvasBTree.getWidth()/2,
-                    50,
-                    canvasBTree.getWidth()/4
+                    60,
+                    canvasBTree.getWidth()/4,
+                    true
             );
         }
     }

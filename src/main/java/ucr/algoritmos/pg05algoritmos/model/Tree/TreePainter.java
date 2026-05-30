@@ -102,63 +102,59 @@ public class TreePainter {
             BTreeNode<Integer> node,
             double x,
             double y,
-            double spacing
-    ) {
+            double spacing,
+            boolean isRoot
+    ){
 
-        if(node == null) return;
+        if(node == null)
+            return;
 
-        double r = 22;
+        double radius = 22;
 
-        Color color;
-
-        boolean hoja =
-                node.left == null &&
-                        node.right == null;
-
-        if(node.path.equals("root"))
-            color = Color.DODGERBLUE;
-
-        else if(hoja)
-            color = Color.LIMEGREEN;
-
-        else
-            color = Color.GRAY;
+        Color color =
+                getNodeColor(node,isRoot);
 
         gc.setFill(color);
 
         gc.fillOval(
-                x-r,
-                y-r,
-                r*2,
-                r*2
+                x-radius,
+                y-radius,
+                radius*2,
+                radius*2
         );
 
-        gc.setStroke(Color.WHITE);
+        gc.setStroke(Color.LIGHTGRAY);
 
         gc.strokeOval(
-                x-r,
-                y-r,
-                r*2,
-                r*2
+                x-radius,
+                y-radius,
+                radius*2,
+                radius*2
         );
 
         gc.setFill(Color.WHITE);
 
+        gc.setFont(new Font(14));
+
         gc.fillText(
                 node.data.toString(),
-                x-6,
+                x-7,
                 y+5
         );
 
         double vGap = 90;
 
+        gc.setStroke(
+                Color.web("#506080")
+        );
+
         if(node.left != null){
 
             gc.strokeLine(
                     x,
-                    y+r,
+                    y,
                     x-spacing,
-                    y+vGap-r
+                    y+vGap
             );
 
             drawSimpleNode(
@@ -166,7 +162,8 @@ public class TreePainter {
                     node.left,
                     x-spacing,
                     y+vGap,
-                    spacing/2
+                    spacing/2,
+                    false
             );
         }
 
@@ -174,9 +171,9 @@ public class TreePainter {
 
             gc.strokeLine(
                     x,
-                    y+r,
+                    y,
                     x+spacing,
-                    y+vGap-r
+                    y+vGap
             );
 
             drawSimpleNode(
@@ -184,9 +181,25 @@ public class TreePainter {
                     node.right,
                     x+spacing,
                     y+vGap,
-                    spacing/2
+                    spacing/2,
+                    false
             );
         }
+    }
+
+    private static Color getNodeColor(
+            BTreeNode<Integer> node,
+            boolean root
+    ){
+
+        if(root)
+            return Color.web("#29A3E1");
+
+        if(node.left == null &&
+                node.right == null)
+            return Color.web("#10C98A");
+
+        return Color.web("#274D7D");
     }
 
 }

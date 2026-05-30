@@ -1,5 +1,7 @@
 package ucr.algoritmos.pg05algoritmos.model.Tree;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
 public class BTree<T extends Comparable<T>> implements Tree<T> {
@@ -314,6 +316,51 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
     public int compareElement(T a, T b) {
         return a.compareTo(b);
     }
+
+    /**Para que el árbol sea BFS, se necesita un metodo diferente de add**/
+
+    public void addBFS(T element) {
+
+        BTreeNode<T> newNode =
+                new BTreeNode<>(element);
+
+        if(root == null){
+            root = newNode;
+            root.path = "root";
+            return;
+        }
+
+        Queue<BTreeNode<T>> queue =
+                new LinkedList<>();
+
+        queue.offer(root);
+
+        while(!queue.isEmpty()){
+
+            BTreeNode<T> current =
+                    queue.poll();
+
+            if(current.left == null){
+
+                current.left = newNode;
+                newNode.path =
+                        current.path + "/left";
+                return;
+            }
+
+            if(current.right == null){
+
+                current.right = newNode;
+                newNode.path =
+                        current.path + "/right";
+                return;
+            }
+
+            queue.offer(current.left);
+            queue.offer(current.right);
+        }
+    }
+
 
 
 
