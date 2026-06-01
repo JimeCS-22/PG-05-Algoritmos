@@ -106,7 +106,7 @@ public class MainController {
 
     @FXML
     public void initialize() {
-       setupBinaryTree();
+        setupBinaryTree();
         setupBST();
         setupAVL();
     }
@@ -666,6 +666,7 @@ public class MainController {
 
             drawBTree();
 
+            canvasBTree.getScene().getWindow().requestFocus();
         } catch (Exception e) {
 
             showAlert(

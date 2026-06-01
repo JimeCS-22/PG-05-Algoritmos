@@ -94,35 +94,38 @@ public class BTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     private BTreeNode<T> remove(BTreeNode<T> node, T element){
-        if (node != null) {
-            if(equals(node.data, element)){//ya encontró el elemento a eliminar
-                //Caso 1. Es un nodo sin hijos
-                if (node.left == null && node.right == null) {
-                    return null;
-                }else{//Caso 2. El nodo solo tiene un hijo, en este caso se reemplaza por todo el subarbol
-                    if (node.left != null && node.right==null) {
-                        node.left = newPath(node.left, node.path);//actualizar etiquetas del path
-                        return node.left;//sube todo el subarbol izq
-                    }else if (node.left == null && node.right != null){
-                        node.right = newPath(node.right, node.path);
-                        return node.right;//sube el subarbol dere
-                    }else{//Caso 3. el nodo tiene dos hijos
-                        //buscamos el valor min del subarbol der
-                        //se reemplaza la data del nodo con ese valor
-                        //luego se suprime el valor min del subarbol der
-                        T minValue = minNode(node.right);
-                        node.data = minValue;
-                        node.right = remove(node.right, minValue);
-                    }
-                }
-            }
-        }else{
-            node.left = remove(node.left, element);
-            node.right = remove(node.right,element);
-            
+        if (node == null) {
+            return null; // caso base: no hay nada que eliminar
         }
-        return node;//retorna el árbol con un elemento menos
+
+        if (equals(node.data, element)) { // encontró el elemento
+            // Caso 1: sin hijos
+            if (node.left == null && node.right == null) {
+                return null;
+            }
+            // Caso 2: un solo hijo
+            else if (node.left != null && node.right == null) {
+                node.left = newPath(node.left, node.path);
+                return node.left;
+            } else if (node.left == null && node.right != null) {
+                node.right = newPath(node.right, node.path);
+                return node.right;
+            }
+            // Caso 3: dos hijos
+            else {
+                T minValue = minNode(node.right);
+                node.data = minValue;
+                node.right = remove(node.right, minValue);
+            }
+        } else {
+            // recorrer recursivamente
+            node.left = remove(node.left, element);
+            node.right = remove(node.right, element);
+        }
+
+        return node;
     }
+
 
     /**
      * Este metodo sirve para actualizar la ruta de todos los nodos del subarbol

@@ -49,7 +49,7 @@
         <TabPane fx:id="mainTabs" prefHeight="200.0" prefWidth="200.0" styleClass="main-tabs" stylesheets="@styles.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
 
-               <Tab text="Árbol Bnario Simple">
+               <Tab text="Árbol Binario Simple">
                   <content>
                      <SplitPane dividerPositions="0.3113482056256062" prefHeight="200.0" prefWidth="200.0">
                         <items>
@@ -114,13 +114,13 @@
                </Tab>
 
                <!-- ... TAB 3: BST ... -->
-            <Tab text="BST Tree">
+            <Tab text="BST - Búsqueda Binaria">
                <content>
                   <SplitPane dividerPositions="0.3113482056256062" prefHeight="200.0" prefWidth="200.0">
                      <items>
                         <VBox prefHeight="665.0" prefWidth="459.0" spacing="10.0" styleClass="panel">
                            <children>
-                              <Label styleClass="panel-title" text="ÁRBOL AVL">
+                              <Label styleClass="panel-title" text="Árbol Binario de Búsqueda">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
