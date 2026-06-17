@@ -5,13 +5,7 @@ package ucr.algoritmos.pg05algoritmos.model.Tree;
  */
 
 import org.junit.jupiter.api.Test;
-
-import java.sql.SQLOutput;
 import java.util.Random;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-
 class BTreeTest {
 
     @Test
@@ -36,8 +30,46 @@ class BTreeTest {
 
                 int value = new Random().nextInt(10 , 50);
                 System.out.println(bTree.contains(value) ? " [ " + value + " ] exists. Height "+bTree.height(value) : value + " does not exist");
+                System.out.println();
 
             }
+
+            //Revision
+            System.out.println("Metodo 1 para la practica de examen:");
+            System.out.println(bTree.printNodesWithChildren());
+            System.out.println();
+            System.out.println("Metodo 2 para la practica de examen:");
+            System.out.println(bTree.printNodes1Child());
+            System.out.println();
+            System.out.println("Metodo 3 para la practica de examen:");
+            System.out.println(bTree.printNodes2Child());
+            System.out.println();
+            System.out.println("Metodo 4 para la practica de examen");
+            System.out.println(bTree.printLeaves());
+            System.out.println();
+            System.out.println("Metodo 5 para la practica de examen:");
+            for (int i = 0; i<10; i++){
+                int value =  new Random().nextInt(10, 50);
+                System.out.println((boolean) bTree.grandFather(value) ? " [ " + value + " ] exists" :  value + " does not exist");
+                System.out.println();
+                System.out.println("Metodo 6 para la practica de examen:");
+                System.out.println((boolean) bTree.father(value) ? " [ " + value + " ] exists" :  value + " does not exist");
+                System.out.println();
+                System.out.println("Metodo 7 para la practica de examen:");
+                System.out.println((boolean) bTree.brother(value) ? " [ " + value + " ] exists" :  value + " does not exist");
+                System.out.println();
+                System.out.println("Metodo 8 para la practica de examen:");
+                System.out.println((boolean) bTree.cousins(value) ? " [ " + value + " ] exists" :  value + " does not exist");
+                System.out.println();
+                System.out.println("Metodo 9 para la practica de examen:");
+                System.out.println(bTree.printSubtree(value));
+                System.out.println();
+            }
+            System.out.println("Metodo 10 para la practica de examen:");
+            System.out.println(bTree.totalLeaves());
+
+
+            System.out.println();
         } catch (TreeException e) {
             throw new RuntimeException(e);
         }
@@ -109,4 +141,5 @@ class BTreeTest {
             throw new RuntimeException(e);
         }
     }
+
 }
