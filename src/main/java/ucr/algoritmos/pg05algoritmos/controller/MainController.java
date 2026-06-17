@@ -45,62 +45,35 @@ public class MainController {
     private Label lblAvlInfo1;
     private AVL<Integer> avl;
 
-    /////---------
-    @FXML
-    private Button btnEliminarInicio;
-    @FXML
-    private TextField txtName;
-    @FXML
-    private Button btnClearListDoble;
-    @FXML
-    private TextArea txAreaNodeStructureD;
-    @FXML
-    private TableColumn colStock;
-    @FXML
-    private Label txtInsertar;
-    @FXML
-    private Label txtInsertadoInDoubly;
-    @FXML
-    private Button btnAgregarDoble;
-    @FXML
-    private Button btnOrdenarStock;
-    @FXML
-    private TextField txtStock;
-    @FXML
-    private TableColumn colIdDoubly;
-    @FXML
-    private ListView listViewOperationsListDoubly;
-    @FXML
-    private TextField txtId;
-    @FXML
-    private TableColumn colRegDate;
-    @FXML
-    private TextField txtPrice;
-    @FXML
-    private Button btnOrdenarNombre;
-    @FXML
-    private Button btnEliminarDoble;
-    @FXML
-    private TableView tableCircularDoubly;
-    @FXML
-    private TableColumn colNombre;
-    @FXML
-    private ChoiceBox bxType;
-    @FXML
-    private Button btnSearchDoble;
-    @FXML
-    private Button btnEliminarFinal;
-    @FXML
-    private TableColumn colType;
-    @FXML
-    private TextArea txAreaNodeRepreDoubly;
+    ///-------BST TREE------------
 
     @FXML
-    private Canvas canvasListDoubly;
+    private Button btnClearBst;
     @FXML
-    private DatePicker dpRegisterDate;
+    private Label lblBstInfo2;
     @FXML
-    private TableColumn colPrice;
+    private Label lblTours2;
+    @FXML
+    private Label lblBstEncontrado;
+    @FXML
+    private Canvas canvasBst;
+    @FXML
+    private TextField txtBstValue;
+    @FXML
+    private ComboBox cbRecorridosBst;
+    @FXML
+    private Button btnAddBst;
+    @FXML
+    private Button btnPlayBst;
+    @FXML
+    private Button btnSearchBst;
+    @FXML
+    private Label lblBstInfo;
+    @FXML
+    private Button btnRemoveBst;
+    @FXML
+    private HBox lblRecorridosBst;
+    private BST<Integer> bst;
 
     /////---------BTREE----------////
 
@@ -133,12 +106,318 @@ public class MainController {
 
     @FXML
     public void initialize() {
-       setupBinaryTree();
-        //setupBST();
+        setupBinaryTree();
+        setupBST();
         setupAVL();
     }
 
-    /// Methods Controller for AVL TREE tab - Camila
+    /// Methods Controller for BST TREE tab - Alexander
+
+    private void setupBST(){
+
+        bst = new BST<>();
+
+        btnAddBst.setOnAction(e -> addBST());
+
+        btnSearchBst.setOnAction(e -> runSearchBST());
+
+        btnRemoveBst.setOnAction(e -> removeBST());
+
+        btnClearBst.setOnAction(e -> clearBST());
+
+        btnPlayBst.setOnAction(e -> {
+            try {
+                playToursBST();
+            } catch (TreeException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        cbRecorridosBst.setItems(
+                FXCollections.observableArrayList(
+                        "PreOrder",
+                        "InOrder",
+                        "PostOrder"
+                )
+        );
+
+        cbRecorridosBst.getSelectionModel().selectFirst();
+    }
+
+    private void addBST() {
+
+        try {
+
+            int value =
+                    Integer.parseInt(
+                            txtBstValue.getText().trim()
+                    );
+
+            if (value < 0) {
+
+                showAlert(
+                        "Error",
+                        "Debe ingresar un número positivo"
+                );
+
+                return;
+            }
+
+            bst.add(value);
+
+            lblBstInfo2.setText(
+                    "Node " + value + " agregado del árbol"
+            );
+
+            updateBSTInfo();
+
+            drawBST();
+
+        } catch (NumberFormatException e) {
+
+            showAlert(
+                    "Error",
+                    "Ingrese un número válido"
+            );
+
+        } catch (Exception e) {
+
+            showAlert(
+                    "Error",
+                    "Error al insertar nodo"
+            );
+        }
+    }
+
+    private void runSearchBST() {
+
+        try {
+
+            int value =
+                    Integer.parseInt(
+                            txtBstValue.getText().trim()
+                    );
+
+            if (value < 0 ||
+                    txtBstValue.getText().isBlank()) {
+
+                showAlert(
+                        "Error",
+                        "Debe ingresar un número positivo"
+                );
+
+                return;
+            }
+
+            boolean found = bst.contains(value);
+
+            if (found) {
+
+                lblBstEncontrado.setText(
+                        "Encontrado: " + value
+                );
+
+                lblBstInfo2.setText(
+                        "Node " + value + " encontrado en el árbol"
+                );
+
+                showAlert(
+                        "Resultado de búsqueda",
+                        "El valor " + value + " fue encontrado en el árbol"
+                );
+
+            } else {
+
+                lblBstEncontrado.setText(
+                        "Encontrado: --"
+                );
+
+                lblBstInfo2.setText(
+                        "Node " + value + " no encontrado en el árbol"
+                );
+
+                showAlert(
+                        "Resultado de búsqueda",
+                        "El valor " + value + " no se encuentra en el árbol"
+                );
+            }
+
+            updateBSTInfo();
+
+            drawBST();
+
+        } catch (NumberFormatException e) {
+
+            showAlert(
+                    "Error",
+                    "Ingrese un número válido"
+            );
+
+        } catch (Exception e) {
+
+            showAlert(
+                    "Error",
+                    "Error al buscar el valor"
+            );
+        }
+    }
+
+    private void removeBST() {
+
+        try {
+
+            int value =
+                    Integer.parseInt(
+                            txtBstValue.getText().trim()
+                    );
+
+            if (value < 0) {
+
+                showAlert(
+                        "Error",
+                        "Debe ingresar número positivo"
+                );
+
+                return;
+            }
+
+            bst.remove(value);
+
+            lblBstInfo2.setText(
+                    "Node " + value + " eliminado del árbol"
+            );
+
+            updateBSTInfo();
+
+            drawBST();
+
+        } catch (NumberFormatException e) {
+
+            showAlert(
+                    "Error",
+                    "Valor inválido"
+            );
+
+        } catch (Exception e) {
+
+            showAlert(
+                    "Error",
+                    "Error al eliminar nodo"
+            );
+        }
+    }
+
+    private void clearBST() {
+
+        bst.clear();
+
+        txtBstValue.clear();
+
+        lblTours2.setText("--");
+
+        lblBstInfo.setText("--");
+
+        lblBstEncontrado.setText("--");
+
+        lblBstInfo2.setText("--");
+
+        GraphicsContext gc =
+                canvasBst.getGraphicsContext2D();
+
+        gc.clearRect(
+                0,
+                0,
+                canvasBst.getWidth(),
+                canvasBst.getHeight()
+        );
+    }
+
+    private void updateBSTInfo() {
+
+        try {
+
+            lblBstInfo.setText(
+                    "Nodos: "
+                            + bst.size()
+                            + " | Altura: "
+                            + bst.height()
+                            + " | BST Válido: true"
+            );
+
+        } catch (Exception e) {
+
+            lblBstInfo.setText(
+                    "Nodos: 0 | Altura: 0 | BST Válido: false"
+            );
+        }
+    }
+
+    private void playToursBST() throws TreeException {
+
+        String recorrido =
+                (String) cbRecorridosBst
+                        .getSelectionModel()
+                        .getSelectedItem();
+
+        switch (recorrido) {
+
+            case "PreOrder":
+
+                lblTours2.setText(
+                        "PreOrder: ["
+                                + bst.preOrder()
+                                + "]"
+                );
+                break;
+
+            case "InOrder":
+
+                lblTours2.setText(
+                        "InOrder: ["
+                                + bst.inOrder()
+                                + "]"
+                );
+                break;
+
+            case "PostOrder":
+
+                lblTours2.setText(
+                        "PostOrder: ["
+                                + bst.postOrder()
+                                + "]"
+                );
+                break;
+        }
+    }
+
+    private void drawBST() {
+
+        GraphicsContext gc =
+                canvasBst.getGraphicsContext2D();
+
+        gc.clearRect(
+                0,
+                0,
+                canvasBst.getWidth(),
+                canvasBst.getHeight()
+        );
+
+        if (bst.root != null) {
+
+            drawSimpleNode(
+                    gc,
+                    bst.root,
+                    canvasBst.getWidth() / 2,
+                    60,
+                    canvasBst.getWidth() / 4,
+                    true
+            );
+        }
+    }
+
+
+
+        /// Methods Controller for AVL TREE tab - Camila
     private void setupAVL() {
         avl = new AVL<>();
 
@@ -387,6 +666,7 @@ public class MainController {
 
             drawBTree();
 
+            canvasBTree.getScene().getWindow().requestFocus();
         } catch (Exception e) {
 
             showAlert(
